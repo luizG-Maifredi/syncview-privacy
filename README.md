@@ -1,21 +1,30 @@
 # Política de Privacidade — SyncView
 
-Última atualização: 07/09/2026
+Última atualização: 15/09/2026
 
 ## O que o SyncView faz
 
 O SyncView é um aplicativo de desktop para Windows que permite compartilhar a
-tela do seu computador através de um link, usando conexão direta (P2P) via
-WebRTC. Quem assiste abre o link em um navegador — não precisa instalar nada.
+tela do seu computador, usando conexão direta (P2P) via WebRTC. Tem dois
+modos: **transmissão avulsa** (gera um link; quem assiste abre no navegador,
+sem instalar nada) e **sala** (um código curto; quem entra também usa o
+SyncView, e qualquer pessoa na sala pode compartilhar a própria tela).
 
 ## Quais dados o SyncView coleta
 
-**Nenhum.** O SyncView não coleta, armazena nem envia para nenhum servidor:
+**Nenhum.** O SyncView não coleta, armazena nem envia para nenhum servidor
+nosso:
 
 - vídeo ou áudio da sua transmissão;
-- informações pessoais (nome, e-mail, localização, contatos);
+- informações pessoais (e-mail, localização, contatos);
 - histórico de uso ou telemetria;
 - arquivos do seu computador.
+
+O único dado pessoal que existe no app é o **nome de exibição** usado nas
+salas (opcional — sem ele, você aparece como "Convidado"). Ele fica salvo
+apenas no seu computador (`localStorage`, local ao app) e só é enviado
+**diretamente para as outras pessoas na mesma sala** (via WebRTC), nunca para
+o desenvolvedor do SyncView ou para qualquer servidor nosso.
 
 ## Como a transmissão funciona
 
@@ -48,12 +57,18 @@ transmissão ativa.
 
 ## Serviços de terceiros
 
-O SyncView usa o **Cloudflare Tunnel** (`cloudflared`) para expor o link de
-transmissão fora da rede local. O uso desse serviço está sujeito à própria
-política de privacidade da Cloudflare, disponível em
-https://www.cloudflare.com/privacypolicy/. O SyncView não compartilha dados
-pessoais com a Cloudflare além do necessário para o funcionamento técnico do
-túnel.
+- **Cloudflare Tunnel** (`cloudflared`), usado no modo **avulsa** para expor
+  o link de transmissão fora da rede local. Sujeito à política de privacidade
+  da Cloudflare (https://www.cloudflare.com/privacypolicy/). O SyncView não
+  compartilha dados pessoais com a Cloudflare além do necessário para o
+  funcionamento técnico do túnel.
+- **PeerJS Cloud**, usado no modo **sala** só para o "aperto de mão" inicial
+  entre os participantes (trocar os metadados técnicos necessários pra
+  estabelecer a conexão direta, usando o código da sala como identificador).
+  O conteúdo das mensagens entre participantes (nome, vídeo, áudio) **não
+  passa por esse serviço** — ele só existe pra duas pessoas se encontrarem
+  antes da conexão P2P ser estabelecida. Sujeito aos termos do projeto PeerJS
+  (https://peerjs.com/).
 
 ## Contato
 
